@@ -1,0 +1,13 @@
+version: "2"
+
+services:
+  db:
+    image: postgres:9.5
+    env_file: .env
+    volumes:
+      - db_data:/var/lib/postgresql/data/pgdata
+
+  web:
+    build:
+      context: ./webapp 
+    env_file: .env

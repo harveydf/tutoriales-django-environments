@@ -1,0 +1,26 @@
+version: "2"
+
+services:
+  db:
+    extends:
+      file: base.yml
+      service: db    
+
+  web:
+    extends:
+      file: base.yml
+      service: web
+    build:
+      args:
+        - DJANGO_ENV=dev
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./webapp:/webapp
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+    external: true
